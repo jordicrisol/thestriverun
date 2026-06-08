@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Strive Run</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --lime: #E8FF00;
+      --dark: #0e0e0e;
+      --card: #111111;
+    }
+
+    body {
+      background: var(--dark);
+      color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .logo-wrap {
+      width: min(480px, 90vw);
+    }
+
+    .logo-wrap svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .tagline {
+      font-size: clamp(0.75rem, 2vw, 0.9rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <main class="hero">
+    <div class="logo-wrap">
+      <svg viewBox="0 0 680 340" role="img" xmlns="http://www.w3.org/2000/svg">
+        <title>The Strive Run</title>
+        <defs>
+          <mask id="text-gaps" maskUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="680" height="340" fill="white"/>
+            <rect x="296" y="143" width="44.93" height="18.67" fill="black" rx="2"/>
+            <rect x="295" y="156.67" width="199.81" height="55.33" fill="black" rx="2"/>
+            <rect x="296" y="216.67" width="130.17" height="15.33" fill="black" rx="2"/>
+          </mask>
+        </defs>
+
+        <!-- Card -->
+        <rect x="140" y="40" width="400" height="260" rx="16" fill="#111111"/>
+
+        <!-- Ground line -->
+        <line x1="192" y1="210" x2="264" y2="210" stroke="#E8FF00" stroke-width="1.5"/>
+
+        <!-- Running figure — rear leg -->
+        <line x1="213" y1="210" x2="226" y2="183" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+        <line x1="213" y1="210" x2="226" y2="183" stroke="#E8FF00" stroke-width="3" stroke-linecap="round"/>
+        <line x1="226" y1="183" x2="238" y2="155" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+        <line x1="226" y1="183" x2="238" y2="155" stroke="#E8FF00" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Running figure — lead leg -->
+        <line x1="238" y1="155" x2="256" y2="130" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+        <line x1="238" y1="155" x2="256" y2="130" stroke="#E8FF00" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Running figure — trailing foot -->
+        <line x1="238" y1="155" x2="255" y2="175" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+        <line x1="238" y1="155" x2="255" y2="175" stroke="#E8FF00" stroke-width="3" stroke-linecap="round"/>
+        <line x1="255" y1="175" x2="263" y2="195" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+        <line x1="255" y1="175" x2="263" y2="195" stroke="#E8FF00" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Head -->
+        <circle cx="230" cy="145" r="7" fill="none" stroke="#1a1a1a" stroke-width="6"/>
+        <circle cx="230" cy="145" r="7" fill="none" stroke="#E8FF00" stroke-width="3"/>
+
+        <!-- Speed dashes -->
+        <line x1="270" y1="148" x2="283" y2="148" stroke="#E8FF00" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+        <line x1="268" y1="158" x2="278" y2="158" stroke="#E8FF00" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+        <line x1="272" y1="138" x2="282" y2="138" stroke="#E8FF00" stroke-width="1" stroke-linecap="round" opacity="0.25"/>
+
+        <!-- Type -->
+        <text x="300" y="157" fill="#888" font-family="Arial, sans-serif" font-size="13">THE</text>
+        <text x="299" y="200" fill="#F0F0F0" font-family="Arial, sans-serif" font-size="46" font-weight="700">STRIVE<tspan fill="#E8FF00">.</tspan></text>
+        <line x1="300" y1="212" x2="530" y2="212" stroke="#2a2a2a" stroke-width="1" mask="url(#text-gaps)"/>
+        <text x="300" y="228" fill="#555" font-family="Arial, sans-serif" font-size="10">THESTRIVE.RUN</text>
+      </svg>
+    </div>
+
+    <p class="tagline">Coming soon</p>
+  </main>
+</body>
+</html>
