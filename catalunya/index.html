@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Strive · Beta Catalunya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --lime:  #E8FF00;
+      --ink:   #0E0E0E;
+      --paper: #F3F2EC;
+      --steel: #727272;
+      --surface: #141414;
+      --border: #1e1e1e;
+      --font: 'Archivo', Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: #F4F4F0;
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(14,14,14,.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo svg { height: 28px; width: auto; display: block; }
+
+    .nav-badge {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      color: var(--lime);
+      background: rgba(232,255,0,.08);
+      padding: .3rem .75rem;
+      border-radius: 20px;
+      border: 1px solid rgba(232,255,0,.2);
+      text-transform: uppercase;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 3.5rem 2rem 2.5rem;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .28em;
+      color: var(--lime);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      font-stretch: 125%;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title em { font-style: normal; color: var(--lime); }
+
+    .hero-sub {
+      font-size: .95rem;
+      color: var(--steel);
+      line-height: 1.65;
+      max-width: 52ch;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem 3.5rem;
+    }
+
+    .section-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .28em;
+      color: #444;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── RACE CARDS ── */
+    .race-list { display: flex; flex-direction: column; gap: 2px; }
+
+    .race-card {
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.1rem;
+      background: var(--surface);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .race-card:hover { border-color: var(--lime); background: #171700; }
+
+    .race-date { text-align: center; }
+    .race-date-day { font-size: 1.6rem; font-weight: 900; font-stretch: 125%; color: var(--lime); line-height: 1; }
+    .race-date-month { font-size: .6rem; font-weight: 600; letter-spacing: .15em; color: var(--steel); text-transform: uppercase; margin-top: 2px; }
+
+    .race-name { font-size: .9rem; font-weight: 700; color: #F4F4F0; margin-bottom: .35rem; }
+
+    .race-meta { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+    .race-tag {
+      font-size: .65rem;
+      font-weight: 600;
+      color: var(--steel);
+      background: #1a1a1a;
+      padding: .2rem .5rem;
+      border-radius: 3px;
+      border: 1px solid #222;
+    }
+
+    .race-tag.trail  { color: #4ade80; border-color: #14532d; background: #052010; }
+    .race-tag.road   { color: #60a5fa; border-color: #1e3a5f; background: #030d1a; }
+
+    .race-arrow { color: #333; font-size: 1.2rem; transition: color .15s; }
+    .race-card:hover .race-arrow { color: var(--lime); }
+
+    /* ── MAP ── */
+    .map-wrap {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      height: 320px;
+      background: var(--surface);
+    }
+
+    .map-wrap svg { display: block; }
+
+    /* ── FORM ── */
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem;
+    }
+
+    .form-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      font-stretch: 125%;
+      letter-spacing: -.01em;
+      margin-bottom: .4rem;
+    }
+
+    .form-sub {
+      font-size: .85rem;
+      color: var(--steel);
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
+    }
+
+    .form-sub strong { color: var(--lime); font-weight: 600; }
+
+    .form-fields { display: flex; flex-direction: column; gap: .875rem; }
+
+    .field-group { display: flex; flex-direction: column; gap: .35rem; }
+
+    .field-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      color: var(--steel);
+      text-transform: uppercase;
+    }
+
+    .field-input {
+      background: var(--ink);
+      border: 1px solid #2a2a2a;
+      border-radius: 5px;
+      padding: .75rem .875rem;
+      color: #F4F4F0;
+      font-size: .875rem;
+      font-family: var(--font);
+      outline: none;
+      transition: border-color .15s;
+      width: 100%;
+    }
+
+    .field-input:focus { border-color: var(--lime); }
+    .field-input::placeholder { color: #333; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .875rem; }
+
+    .btn-submit {
+      margin-top: .25rem;
+      width: 100%;
+      background: var(--lime);
+      color: var(--ink);
+      font-size: .875rem;
+      font-weight: 800;
+      font-stretch: 125%;
+      letter-spacing: .04em;
+      padding: .875rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: opacity .15s;
+      font-family: var(--font);
+      text-transform: uppercase;
+    }
+
+    .btn-submit:hover { opacity: .88; }
+
+    .form-legal {
+      font-size: .7rem;
+      color: #333;
+      margin-top: .75rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .success-msg { display: none; text-align: center; padding: 1.5rem 0; }
+    .success-msg .check { font-size: 2rem; margin-bottom: .5rem; color: var(--lime); }
+    .success-msg p { color: #4ade80; font-size: .95rem; font-weight: 700; }
+    .success-msg small { color: var(--steel); font-size: .75rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    footer p { font-size: .7rem; color: #333; letter-spacing: .08em; }
+    footer span { color: var(--lime); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 560px) {
+      nav { padding: .9rem 1.25rem; }
+      .hero { padding: 2.5rem 1.25rem 2rem; }
+      .section { padding: 0 1.25rem 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .race-card { grid-template-columns: 52px 1fr auto; gap: .75rem; padding: .875rem .875rem; }
+    }
+  </style>
+</head>
+<body>
+
+<h1 class="sr-only">The Strive — Beta Catalunya: properes curses de running i trail, mapa i formulari de registre</h1>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo" aria-label="The Strive — torna a l'inici">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 200">
+      <g transform="translate(56,54) scale(0.92)" fill="none">
+        <line x1="14" y1="80" x2="41" y2="60" stroke="#3c3c3c" stroke-width="12.5" stroke-linecap="round"/>
+        <line x1="33" y1="84" x2="67" y2="50" stroke="#727272" stroke-width="12.5" stroke-linecap="round"/>
+        <line x1="52" y1="88" x2="93" y2="33" stroke="#E8FF00" stroke-width="12.5" stroke-linecap="round"/>
+      </g>
+      <text x="190" y="62"  font-family="Archivo,Arial,sans-serif" font-weight="600" font-size="13" letter-spacing="5.4" fill="#7d7d7d">THE</text>
+      <text x="188" y="118" font-family="Archivo,Arial,sans-serif" font-weight="900" font-size="58" letter-spacing="-0.7" fill="#F4F4F0" style="font-stretch:125%">STRIVE<tspan fill="#E8FF00">.</tspan></text>
+      <text x="190" y="150" font-family="Archivo,Arial,sans-serif" font-weight="600" font-size="12" letter-spacing="4" fill="#5f5f5f">THESTRIVE.RUN</text>
+    </svg>
+  </a>
+  <div class="nav-badge">Beta · Catalunya</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Properes curses · Juny 2026</div>
+  <h2 class="hero-title">Corre a <em>Catalunya.</em><br>Sense perdre't res.</h2>
+  <p class="hero-sub">Cada setmana, les millors curses de running i trail a Catalunya — curades i ordenades per tu. Registra't i rep-les directament al WhatsApp.</p>
+</div>
+
+<!-- RACE LIST -->
+<div class="section">
+  <div class="section-label">Properes 5 curses</div>
+  <div class="race-list" id="raceList"></div>
+</div>
+
+<!-- MAP -->
+<div class="section">
+  <div class="section-label">On són les curses</div>
+  <div class="map-wrap" id="mapWrap">
+    <div id="mapSvg" style="width:100%;height:100%"></div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="section">
+  <div class="form-card">
+    <div class="form-title">Rep les curses cada divendres</div>
+    <p class="form-sub">Registra't i t'enviem les <strong>millors curses de les properes 8 setmanes</strong> per WhatsApp i email. Gratis, sense spam.</p>
+    <div id="formWrap">
+      <div class="form-fields">
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label" for="email">Correu electrònic</label>
+            <input class="field-input" type="email" id="email" placeholder="tu@email.com" autocomplete="email">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="phone">Mòbil (WhatsApp)</label>
+            <input class="field-input" type="tel" id="phone" placeholder="6XX XXX XXX" autocomplete="tel">
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="postal">Codi postal</label>
+          <input class="field-input" type="text" id="postal" placeholder="Ex: 08001" maxlength="5" style="max-width:180px">
+        </div>
+        <button class="btn-submit" onclick="handleSubmit()">Apunta'm a les curses →</button>
+        <p class="form-legal">Cap spam. Pots donar-te de baixa quan vulguis. Dades tractades conforme al RGPD.</p>
+      </div>
+    </div>
+    <div class="success-msg" id="successMsg">
+      <div class="check">✓</div>
+      <p>Ja ets a la llista.</p>
+      <small>Et contactem cada divendres al vespre amb les properes curses.</small>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><span>THE STRIVE</span> · thestrive.run · Beta Catalunya · 2026</p>
+</footer>
+
+<script>
+const races = [
+  {day:"13",month:"JUN",name:"Molló Trail",tags:["Trail","21 km","D+1.200m"],place:"Molló, Girona",lat:42.348,lng:2.405,url:"https://www.mollotrail.cat/"},
+  {day:"13",month:"JUN",name:"Night Trail Lloret",tags:["Trail","14 km","D+450m"],place:"Lloret de Mar, Barcelona",lat:41.697,lng:2.855,url:"https://nighttraillloret.com/es"},
+  {day:"14",month:"JUN",name:"Cursa La Cirera",tags:["Trail","13 km","D+450m"],place:"Terrades, Girona",lat:42.328,lng:2.852,url:"https://cursacireraterrades.com/"},
+  {day:"21",month:"JUN",name:"Lles Xtrail",tags:["Trail","69 km","D+3.530m"],place:"Lles, Lleida",lat:42.389,lng:1.673,url:"https://misports.cat/carreras/lles-xtrail/"},
+  {day:"21",month:"JUN",name:"Trail Lo Bunker",tags:["Trail","22 km","D+1.200m"],place:"Foradada, Lleida",lat:41.865,lng:1.008,url:"http://lobunkertrail.blogspot.com/"},
+];
+
+/* Race list */
+const list = document.getElementById('raceList');
+races.forEach(r => {
+  const isRoad = r.tags[0] === 'Road';
+  list.innerHTML += `<a class="race-card" href="${r.url}" target="_blank" rel="noopener">
+    <div class="race-date">
+      <div class="race-date-day">${r.day}</div>
+      <div class="race-date-month">${r.month}</div>
+    </div>
+    <div>
+      <div class="race-name">${r.name}</div>
+      <div class="race-meta">
+        <span class="race-tag ${isRoad ? 'road' : 'trail'}">${r.tags[0]}</span>
+        ${r.tags.slice(1).map(t => `<span class="race-tag">${t}</span>`).join('')}
+        <span class="race-tag">${r.place}</span>
+      </div>
+    </div>
+    <div class="race-arrow">›</div>
+  </a>`;
+});
+
+/* Map */
+function buildMap() {
+  const W = 680, H = 320;
+  const minLat = 40.8, maxLat = 42.9, minLng = 0.1, maxLng = 3.4;
+
+  function toXY(lat, lng) {
+    return {
+      x: ((lng - minLng) / (maxLng - minLng)) * W,
+      y: H - ((lat - minLat) / (maxLat - minLat)) * H
+    };
+  }
+
+  const colors = ["#E8FF00", "#4ade80", "#60a5fa", "#fb923c", "#a78bfa"];
+  let pins = '';
+
+  races.forEach((r, i) => {
+    const { x, y } = toXY(r.lat, r.lng);
+    const c = colors[i];
+    const labelX = x > 500 ? x - 10 : x + 14;
+    const anchor = x > 500 ? 'end' : 'start';
+    pins += `
+      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="12" fill="${c}" opacity=".12"/>
+      <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" fill="${c}"/>
+      <text x="${labelX.toFixed(1)}" y="${(y - 10).toFixed(1)}" font-family="Archivo,Arial,sans-serif" font-size="11" font-weight="700" fill="${c}" text-anchor="${anchor}">${r.name}</text>
+      <text x="${labelX.toFixed(1)}" y="${(y + 3).toFixed(1)}"  font-family="Archivo,Arial,sans-serif" font-size="10" fill="#555" text-anchor="${anchor}">${r.place}</text>`;
+  });
+
+  document.getElementById('mapSvg').innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <rect width="${W}" height="${H}" fill="#0d0d0d"/>
+      <line x1="0" y1="${H/2}" x2="${W}" y2="${H/2}" stroke="#181818" stroke-width="1"/>
+      <line x1="${W/2}" y1="0" x2="${W/2}" y2="${H}" stroke="#181818" stroke-width="1"/>
+      <text x="12" y="${H - 10}" font-family="Archivo,Arial,sans-serif" font-size="9" fill="#2a2a2a" letter-spacing="0.12em">CATALUNYA · THE STRIVE</text>
+      ${pins}
+    </svg>`;
+}
+buildMap();
+
+/* Form */
+function handleSubmit() {
+  const email  = document.getElementById('email').value.trim();
+  const phone  = document.getElementById('phone').value.trim();
+  const postal = document.getElementById('postal').value.trim();
+
+  if (!email || !phone || !postal) {
+    alert('Omple tots els camps per continuar.');
+    return;
+  }
+
+  document.getElementById('formWrap').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+}
+</script>
+</body>
+</html>
